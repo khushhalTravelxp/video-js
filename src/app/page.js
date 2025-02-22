@@ -42,7 +42,7 @@ export default function ShakaPlayer() {
       });
 
       try {
-        await playerRef.current.load("https://travelxp.akamaized.net/6757d44c2b3f6946db2f6034/manifest_v1_12122024_1125.m3u8");
+        await playerRef.current.load("https://travelxp.akamaized.net/676026372b3f6946db2f607d/manifest_v2_hd_20122024_1558.m3u8");
         console.log("The video has been loaded successfully!");
       } catch (error) {
         console.error("Error loading video", error);
