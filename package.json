@@ -12,7 +12,8 @@
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "video.js": "^8.21.0"
+    "video.js": "^8.21.0",
+    "videojs-contrib-eme": "^5.5.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
