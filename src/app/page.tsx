@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
 export default function FairPlayPlayer() {
-  let player;
+  const playerRef = useRef(null);
   const [videoEl, setVideoEl] = useState(null);
 
   const onVideo = useCallback((el) => {
@@ -12,9 +12,9 @@ export default function FairPlayPlayer() {
   }, []);
 
   useEffect(() => {
-    if (videoEl == null) return;
+    if (!videoEl || playerRef.current) return;
 
-    player = videojs(videoEl, {
+    playerRef.current = videojs(videoEl, {
       controls: true,
       autoplay: false,
       preload: "auto",
@@ -29,7 +29,8 @@ export default function FairPlayPlayer() {
             licenseUri: "https://c8eaeae1-drm-fairplay-licensing.axprod.net/AcquireLicense",
             certificateUri: "https://travelxp.akamaized.net/cert/fairplay/fairplay.cer",
             headers: {
-              Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9..."
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ2ZXJzaW9uIjoxLCJjb21fa2V5X2lkIjoiYjQ1ODc2N2QtYTgzYi00MWQ0LWFlNjgtYWNhNzAwZDNkODRmIiwibWVzc2FnZSI6eyJ0eXBlIjoiZW50aXRsZW1lbnRfbWVzc2FnZSIsInZlcnNpb24iOjIsImxpY2Vuc2UiOnsiZXhwaXJhdGlvbl9kYXRldGltZSI6IjIwMjUtMDItMjNUMDY6Mzc6MzcuNjU5WiIsImFsbG93X3BlcnNpc3RlbmNlIjp0cnVlLCJyZWFsX3RpbWVfZXhwaXJhdGlvbiI6dHJ1ZX0sImNvbnRlbnRfa2V5X3VzYWdlX3BvbGljaWVzIjpbeyJuYW1lIjoiUG9saWN5IEEiLCJ3aWRldmluZSI6eyJkZXZpY2Vfc2VjdXJpdHlfbGV2ZWwiOiJTV19TRUNVUkVfQ1JZUFRPIn19XSwiY29udGVudF9rZXlzX3NvdXJjZSI6eyJpbmxpbmUiOlt7ImlkIjoiYmJkZjFmYWVlZmE5ODRjNjNhZjVkNmYzYzA1MDQwMDkiLCJ1c2FnZV9wb2xpY3kiOiJQb2xpY3kgQSJ9LHsiaWQiOiJhMzAzYzM1NzRiMTIzYmZlZGM3YWEyZmZkNmY1M2JmMSIsInVzYWdlX3BvbGljeSI6IlBvbGljeSBBIn0seyJpZCI6ImI0ZTU0MjVjM2NhYjc4NTE0MTgwZDQ2MTA3NzBkNmJkIiwidXNhZ2VfcG9saWN5IjoiUG9saWN5IEEifSx7ImlkIjoiZTdkMjQ0NzI1MGQ5YmE0MmE0MzIzNzRmODU3ZjJhYzgiLCJ1c2FnZV9wb2xpY3kiOiJQb2xpY3kgQSJ9XX19LCJpYXQiOjE3NDAyMDk4NTcsImV4cCI6MTc0MDI5NjI1N30.aID1C2BBATGND61wkgdul3uLDrvsEhKUCbr8ZzO8T1k"
             },
             getContentId: (emeOptions, initData) => {
               if (initData) {
@@ -50,7 +51,15 @@ export default function FairPlayPlayer() {
         }
       ]
     });
-  }, [videoEl]); // Re-run effect when `videoEl` changes
+
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.dispose();
+        playerRef.current = null;
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [videoEl]); // Effect runs when `videoEl` changes
 
   return (
     <div>
