@@ -20,6 +20,8 @@ export default function FairPlayPlayer() {
       autoplay: false,
       preload: "auto",
       fluid: true,
+      width: 400,
+      height: 250,
       techOrder: ["html5"],
       html5: {
         vhs: { overrideNative: true }
@@ -73,8 +75,8 @@ export default function FairPlayPlayer() {
   }, [videoEl]);
 
   return (
-    <div>
-      <video ref={onVideo} className="video-js vjs-default-skin" />
+    <div className="w-96">
+      <video ref={onVideo} className="video-js vjs-default-skin w-40" />
     </div>
   );
 }
