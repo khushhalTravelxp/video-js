@@ -9,7 +9,9 @@ export default function ShakaPlayer() {
   useEffect(() => {
     async function initPlayer() {
       if (!videoRef.current) return;
-
+      const video = videoRef.current;
+      video.setAttribute("muted", "true");
+      video.setAttribute("playsinline", "true");
       shaka.polyfill.installAll();
 
       playerRef.current = new shaka.Player(videoRef.current);
@@ -38,7 +40,7 @@ export default function ShakaPlayer() {
               }
             }
           }
-        },
+        }
       });
 
       try {
