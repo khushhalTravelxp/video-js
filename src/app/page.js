@@ -16,22 +16,10 @@ export default function FairPlayPlayer() {
     if (!videoEl || playerRef.current) return;
 
     const player = videojs(videoEl, {
-      controls: true,
-      autoplay: false,
-      preload: "auto",
-      fluid: true,
-      width: 400,
-      height: 250,
       techOrder: ["html5"],
       html5: {
         vhs: { overrideNative: true }
-      },
-      sources: [
-        {
-          src: "https://travelxp.akamaized.net/676026372b3f6946db2f607d/manifest_v2_hd_20122024_1558.m3u8",
-          type: "application/x-mpegURL"
-        }
-      ]
+      }
     });
 
     player.on("ready", () => {
