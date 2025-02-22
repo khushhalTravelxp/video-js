@@ -34,7 +34,7 @@ export default function FairPlayPlayer() {
       ]
     });
 
-    videoPlayer.on("ready", () => {
+    player.on("ready", () => {
       player.src({
         src: "https://travelxp.akamaized.net/676026372b3f6946db2f607d/manifest_v2_hd_20122024_1558.m3u8",
         type: "application/x-mpegURL",
@@ -62,8 +62,8 @@ export default function FairPlayPlayer() {
       });
     });
 
-    player.eme(); 
-    
+    player.eme();
+
     playerRef.current = player;
 
     return () => {
