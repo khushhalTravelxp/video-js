@@ -34,6 +34,8 @@ export default function FairPlayPlayer({ data }) {
       ]
     });
 
+    console.log(player);
+
     player.src({
       keySystems: {
         "com.apple.fps.1_0": {
