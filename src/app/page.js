@@ -32,11 +32,13 @@ export default function ShakaPlayer() {
           servers: drmConfig,
           advanced: {
             "com.apple.fps": {
-              serverCertificateUri: "https://travelxp.akamaized.net/cert/fairplay/fairplay.cer"
-              
+              serverCertificateUri: "https://travelxp.akamaized.net/cert/fairplay/fairplay.cer",
+              getContentId: (emeOptions, initData) => {
+                return new TextDecoder().decode(initData.filter((item) => item !== 0 && item !== 150));
+              }
             }
           }
-        }
+        },
       });
 
       try {
