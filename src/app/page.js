@@ -38,6 +38,9 @@ export default function ShakaPlayer() {
               }
             }
           }
+        },
+        streaming: {
+          useNativeHlsForFairPlay: false
         }
       });
 
